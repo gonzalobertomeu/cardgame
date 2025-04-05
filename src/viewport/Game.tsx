@@ -3,6 +3,7 @@ import { Opponent } from "./Opponent"
 import { Player } from "./Player"
 import { useEffect } from "react"
 import { GameEngine } from "../engine/GameEngine"   
+import { AnimatePresence } from "motion/react"
 
 export const Game = () => {
     useEffect(() => {
@@ -10,9 +11,11 @@ export const Game = () => {
     }, [])
     return (
         <div className="h-screen w-screen flex flex-col bg-slate-300">
-            <Opponent />
-            <Board />
-            <Player />
+            <AnimatePresence>
+                <Opponent />
+                <Board />
+                <Player />
+            </AnimatePresence>
         </div>
     )
 }

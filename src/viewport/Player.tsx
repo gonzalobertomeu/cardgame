@@ -8,7 +8,7 @@ export const Player = () => {
             <h1>Player</h1>
             <div className="flex flex-row gap-4 justify-center items-center">
                 {player.hand.map((card) => (
-                    <Card key={card.getId()} card={card} player="player" />
+                    <Card key={card.getId()} card={card} player="player" flip={true}/>
                 ))}
             </div>
         </div>

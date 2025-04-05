@@ -22,18 +22,7 @@ export class GameEngine {
 
     public drawCard() {
         const turn = useGameState.getState().turn
-        const targetDeck = turn === 'player' ? useGameState.getState().player : useGameState.getState().opponent
-        const setTargetDeck = turn === 'player' ? useGameState.getState().setPlayerState : useGameState.getState().setOpponentState
-        const deck = useGameState.getState().deck
-        const card = deck.pop()
-        if (card) {
-            setTargetDeck(produce(targetDeck, (draft) => {
-                draft.hand.push(card)
-            }))
-            useGameState.getState().setDeck(deck)
-        } else {
-            //reshuffle discard into deck
-        }
+        useGameState.getState().drawCard(turn)
         useGameState.getState().setTurn(
             useGameState.getState().turn === 'player' ? 'opponent' : 'player'   
         )
