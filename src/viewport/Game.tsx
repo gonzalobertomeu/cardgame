@@ -11,11 +11,9 @@ export const Game = () => {
     }, [])
     return (
         <div className="h-screen w-screen flex flex-col bg-slate-300">
-            <AnimatePresence>
-                <Opponent />
-                <Board />
-                <Player />
-            </AnimatePresence>
+            <Opponent />
+            <Board />
+            <Player />
         </div>
     )
 }

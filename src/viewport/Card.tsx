@@ -1,7 +1,8 @@
-import { Card as CardEntity, WarriorCard } from "../engine/domain/Card"
+import { Card as CardEntity } from "../engine/domain/Card"
 import { GameEngine } from "../engine/GameEngine"
-import { motion, MotionProps } from "motion/react"
+import { motion } from "motion/react"
 import { useEffect, useState } from "react"
+import { CardContent } from "./CardTypes/CardContent"
 type CardProps = {
     card: CardEntity
     player?: 'player' | 'opponent'
@@ -51,18 +52,7 @@ export const Card = ({card, player, hidden = false, flip = false, disableHover =
                         transition: 'transform 1s',
                     }}
                 >
-                    <div className="w-full h-full rounded-sm bg-slate-200 p-2 flex flex-col justify-center items-center">
-                        <p>{card?.getType()}</p>
-                        {
-                            card instanceof WarriorCard && (
-                                <>
-                                    <p>{card.getHealth()}</p>
-                                    <p>{card.getWarriorType()}</p>
-                                </>
-            
-                            )
-                        }
-                    </div>
+                    <CardContent card={card}/>
                 </div>
                 <div className={`w-full h-full absolute bg-slate-500 rounded-md p-2 border-2 border-slate-600 backface-hidden ${!isFlipped ? 'rotate-y-180' : ''}`} 
                     style={{
