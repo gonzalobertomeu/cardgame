@@ -2,6 +2,7 @@ import { DeckBuilder } from "./logic/DeckBuilder"
 import { useGameState } from "./GameState"
 import { Card } from "./domain/Card"
 import { produce } from 'immer'
+import { Dealer } from "./logic/Dealer"
 
 export class GameEngine {
     private static instance: GameEngine
@@ -15,9 +16,12 @@ export class GameEngine {
         return GameEngine.instance
     }
 
-    public startGame() {
+    public async startGame() {
         const deck = DeckBuilder.buildDeck()
         useGameState.getState().setDeck(deck)
+        useGameState.getState().setStatus('starting')
+        await Dealer.dealFirstWarriors()
+        useGameState.getState().setStatus('playing')
     }
 
     public drawCard() {
@@ -26,6 +30,14 @@ export class GameEngine {
         useGameState.getState().setTurn(
             useGameState.getState().turn === 'player' ? 'opponent' : 'player'   
         )
+    }
+
+    public pauseGame() {
+        useGameState.getState().setStatus('paused')
+    }
+
+    public resumeGame() {
+        useGameState.getState().setStatus('playing')
     }
 
     public playCard(card: Card, player: 'player' | 'opponent') {

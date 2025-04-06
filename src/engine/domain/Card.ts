@@ -1,5 +1,5 @@
 export type CardType = 'warrior' | 'resource' | 'special' | 'spell'
-export type WarriorType = 'knight' | 'archer' | 'mage'
+export type WarriorType = 'knight' | 'archer' | 'mage' | 'dragon'
 export type ResourceType = 'gold' | 'arrow' | 'sword' | 'potion'
 export type SpecialType = 'siege' | 'thief' | 'spy'
 
@@ -9,8 +9,8 @@ export class Card {
     private readonly id: string
     private readonly type: CardType
 
-    constructor(type: CardType) {
-        this.id = uuidv4()
+    constructor(type: CardType, id?: string) {
+        this.id = id ?? uuidv4()
         this.type = type
     }
 
@@ -29,13 +29,32 @@ export class Card {
         }
         return json;
     }
+
+    static from(dto: Record<string, any>) {
+        let card: Card
+        if (dto.type === 'warrior') {
+            card = new WarriorCard(dto.health, dto.warriorType, dto.id)
+        }
+        else if (dto.type === 'resource') {
+            card = new ResourceCard(dto.amount, dto.resourceType, dto.id)
+        }
+        else if (dto.type === 'special') {
+            card = new SpecialCard(dto.specialType, dto.id)
+        }
+        else if (dto.type === 'spell') {
+            card = new SpellCard(dto.id)
+        } else {
+            throw new Error('Invalid card type')
+        }
+        return card
+    }
 }
 
 export class WarriorCard extends Card {
     private readonly health: number
     private readonly warriorType: WarriorType
-    constructor(health: number, warriorType: WarriorType) {
-        super('warrior')
+    constructor(health: number, warriorType: WarriorType, id?: string) {
+        super('warrior', id)
         this.health = health
         this.warriorType = warriorType
     }
@@ -53,8 +72,8 @@ export class ResourceCard extends Card {
     private readonly amount: number
     private readonly resourceType: ResourceType
 
-    constructor(amount: number, resourceType: ResourceType) {
-        super('resource')
+    constructor(amount: number, resourceType: ResourceType, id?: string) {
+        super('resource', id)
         this.amount = amount
         this.resourceType = resourceType
     }
@@ -71,8 +90,8 @@ export class ResourceCard extends Card {
 export class SpecialCard extends Card {
     private readonly specialType: SpecialType
     
-    constructor(specialType: SpecialType) {
-        super('special')
+    constructor(specialType: SpecialType, id?: string) {
+        super('special', id)
         this.specialType = specialType
     }
 
@@ -82,7 +101,7 @@ export class SpecialCard extends Card {
 }
 
 export class SpellCard extends Card {
-    constructor() {
-        super('spell')
+    constructor(id?: string) {
+        super('spell', id)
     }
 }

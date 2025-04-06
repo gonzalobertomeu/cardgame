@@ -9,11 +9,14 @@ export const Warrior = ({card}: WarriorProps) => {
         'knight': 'bg-blue-200',
         'archer': 'bg-orange-200',
         'mage': 'bg-green-200',
+        'dragon': 'bg-stone-600'
     }
+    const fontColor = card.getWarriorType() === 'dragon' ? 'text-white' : 'text-black'
     return (
         <div className={`w-full h-full 
             rounded-sm 
-            ${color[card.getWarriorType()]} 
+            ${color[card.getWarriorType()]}
+            ${fontColor}
             p-2 flex flex-col justify-center items-center`}
         >
             <h3>{card.getWarriorType().toUpperCase()}</h3>

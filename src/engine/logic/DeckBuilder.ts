@@ -15,6 +15,7 @@ export class DeckBuilder {
                 return [...Array(5)].map(() => new WarriorCard(10, type))
             }
         ).flat();
+        warriors.push(new WarriorCard(10, "dragon"))
         const resources = (["arrow", "sword", "potion"] as ResourceType[]).map(
             (type: ResourceType) => {
                 return [...Array(9).keys()].map((value) => new ResourceCard(value + 1, type))

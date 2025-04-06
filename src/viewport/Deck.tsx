@@ -10,21 +10,27 @@ export type DeckProps = {
 
 export const Deck = ({ deck, drawCard }: DeckProps) => {
     const targetDeck = useGameState((state) => state[deck]) as CardEntity[]
+    const status = useGameState((state) => state.status)
+    const handleClick = () => {
+        if (status === 'starting') {
+            return
+        }
+        GameEngine.getInstance().drawCard()
+    }
     return (
-        <div className="w-40 flex flex-col items-center justify-center">
-            <button onClick={() => GameEngine.getInstance().drawCard()}>Draw Card</button>
-            <div>
+        <div className="w-40 flex flex-col items-center justify-center z-20">
+            <button onClick={handleClick}>
                 {
                     targetDeck[0] && (
                         <Card 
                             key={targetDeck[0].getId()} 
                             card={targetDeck[0]} 
                             hidden={true}
-                            disableHover
+                            disableHover={status === 'starting'}
                         />
                     )
                 }
-            </div>
+            </button>
         </div>
     )
 }

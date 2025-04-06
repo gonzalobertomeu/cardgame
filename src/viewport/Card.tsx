@@ -9,9 +9,10 @@ type CardProps = {
     hidden?: boolean
     flip?: boolean
     disableHover?: boolean
+    onBoard?: boolean
 }
 
-export const Card = ({card, player, hidden = false, flip = false, disableHover = false}: CardProps) => {
+export const Card = ({card, player, hidden = false, flip = false, disableHover = false, onBoard = false}: CardProps) => {
     const [isHovered, setIsHovered] = useState<boolean>(false)
     const [isFlipped, setIsFlipped] = useState<boolean>(hidden || flip)
 
@@ -30,7 +31,7 @@ export const Card = ({card, player, hidden = false, flip = false, disableHover =
     }
     return (
         <motion.div
-            className={`w-30 h-50 rounded-md shadow-${!disableHover && isHovered ? 'lg' : 'sm'}`} 
+            className={`w-30 h-50 rounded-md ${onBoard ? 'z-0' : 'z-20'}`} 
             style={{transition: 'box-shadow .3s'}}
             onClick={handleClick}
             onHoverStart={() => setIsHovered(true)}
@@ -40,7 +41,7 @@ export const Card = ({card, player, hidden = false, flip = false, disableHover =
             layout="position"
             layoutId={card.getId()}
         >
-            <motion.div className="w-full h-full relative"
+            <motion.div className="w-full h-full relative shadow-${!disableHover && isHovered ? 'lg' : 'sm'}"
                 animate={{
                     y: !disableHover && isHovered ? (isFlipped ? 10 : -20) : 0,
                     scale: !disableHover && isHovered ? 1.2 : 1,
