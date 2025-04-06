@@ -27,9 +27,6 @@ export class GameEngine {
     public drawCard() {
         const turn = useGameState.getState().turn
         useGameState.getState().drawCard(turn)
-        useGameState.getState().setTurn(
-            useGameState.getState().turn === 'player' ? 'opponent' : 'player'   
-        )
     }
 
     public pauseGame() {
