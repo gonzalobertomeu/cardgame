@@ -1,5 +1,5 @@
-import { GameEngine } from "./engine/GameEngine"
-import { useGameState } from "./engine/GameState"
+import { GameEngine } from "@/engine/GameEngine"
+import { useGameState } from "@/engine/GameState"
 
 export const Menu = () => {
     const status = useGameState((state) => state.status)

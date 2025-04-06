@@ -1,8 +1,8 @@
-import { Card as CardEntity } from "../engine/domain/Card"
-import { GameEngine } from "../engine/GameEngine"
+import { Card as CardEntity } from "@/engine/domain/Card"
+import { GameEngine } from "@/engine/GameEngine"
 import { motion } from "motion/react"
 import { useEffect, useState } from "react"
-import { CardContent } from "./CardTypes/CardContent"
+import { CardContent } from "@/viewport/CardTypes/CardContent"
 type CardProps = {
     card: CardEntity
     player?: 'player' | 'opponent'

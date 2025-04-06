@@ -1,8 +1,7 @@
-import { useState } from "react"
-import { Card as CardEntity } from "../engine/domain/Card"
-import { useGameState } from "../engine/GameState"
-import { GameEngine } from "../engine/GameEngine"
-import { Card } from "./Card"
+import { Card as CardEntity } from "@/engine/domain/Card"
+import { useGameState } from "@/engine/GameState"
+import { GameEngine } from "@/engine/GameEngine"
+import { Card } from "@/viewport/Card"
 export type DeckProps = {
     deck: 'deck' | 'discard'
     drawCard?: () => void

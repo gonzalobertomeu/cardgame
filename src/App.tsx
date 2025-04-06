@@ -1,4 +1,4 @@
-import { Game } from './viewport/Game'
+import { Game } from '@/viewport/Game'
 function App() {
   return <Game />
 }

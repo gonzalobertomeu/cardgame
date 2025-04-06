@@ -1,9 +1,10 @@
+import { v4 as uuidv4 } from 'uuid'
+
 export type CardType = 'warrior' | 'resource' | 'special' | 'spell'
 export type WarriorType = 'knight' | 'archer' | 'mage' | 'dragon'
 export type ResourceType = 'gold' | 'arrow' | 'sword' | 'potion'
 export type SpecialType = 'siege' | 'thief' | 'spy'
 
-import { v4 as uuidv4 } from 'uuid'
 
 export class Card {
     private readonly id: string

@@ -1,4 +1,4 @@
-import { SpellCard } from "../../engine/domain/Card"
+import { SpellCard } from "@/engine/domain/Card"
 
 type SpellProps = {
     card: SpellCard

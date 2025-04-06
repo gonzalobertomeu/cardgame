@@ -1,4 +1,4 @@
-import { SpecialCard } from "../../engine/domain/Card"
+import { SpecialCard } from "@/engine/domain/Card"
 
 type SpecialProps = {
     card: SpecialCard

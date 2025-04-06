@@ -1,4 +1,4 @@
-import { WarriorCard } from "../../engine/domain/Card"
+import { WarriorCard } from "@/engine/domain/Card"
 
 type WarriorProps = {
     card: WarriorCard

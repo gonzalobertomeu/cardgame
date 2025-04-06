@@ -1,5 +1,5 @@
-import { Time } from "../domain/Time"
-import { useGameState } from "../GameState"
+import { Time } from "@/engine/domain/Time"
+import { useGameState } from "@/engine/GameState"
 
 export class Dealer {
     public static async dealFirstWarriors(countPerPlayer: number = 3): Promise<void> {

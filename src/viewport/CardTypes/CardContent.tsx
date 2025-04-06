@@ -1,4 +1,4 @@
-import { Card as CardEntity, WarriorCard, ResourceCard, SpecialCard, SpellCard } from "../../engine/domain/Card"
+import { Card as CardEntity, WarriorCard, ResourceCard, SpecialCard, SpellCard } from "@/engine/domain/Card"
 import { Warrior } from "./Warrior"
 import { DefaultCard } from "./Default"
 import { Resource } from "./Resource"

@@ -1,5 +1,5 @@
-import { useGameState } from "../engine/GameState"
-import { Card } from "./Card"
+import { useGameState } from "@/engine/GameState"
+import { Card } from "../Card"
     
 export const Opponent = () => {
     const opponent = useGameState((state) => state.opponent)

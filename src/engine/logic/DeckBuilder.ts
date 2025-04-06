@@ -7,7 +7,8 @@ import {
     WarriorType,
     ResourceType,
     SpecialType,
-} from "../domain/Card";
+} from "@/engine/domain/Card";
+
 export class DeckBuilder {
     public static buildDeck(): Card[] {
         const warriors = (["knight", "archer", "mage"] as WarriorType[]).map(

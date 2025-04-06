@@ -1,4 +1,4 @@
-import { Card as CardEntity } from "../../engine/domain/Card"
+import { Card as CardEntity } from "@/engine/domain/Card"
 
 type DefaultCardProps = {
     card: CardEntity

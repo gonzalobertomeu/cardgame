@@ -1,4 +1,4 @@
-import { ResourceCard } from "../../engine/domain/Card"
+import { ResourceCard } from "@/engine/domain/Card"
 
 type ResourceProps = {
     card: ResourceCard
