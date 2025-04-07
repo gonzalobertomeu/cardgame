@@ -9,10 +9,12 @@ export type SpecialType = 'siege' | 'thief' | 'spy'
 export class Card {
     private readonly id: string
     private readonly type: CardType
+    private hidden: boolean
 
     constructor(type: CardType, id?: string) {
         this.id = id ?? uuidv4()
         this.type = type
+        this.hidden = false
     }
 
     getId() {
@@ -21,6 +23,14 @@ export class Card {
 
     getType() {
         return this.type
+    }
+
+    flip() {
+        this.hidden = true
+    }
+
+    isHidden() {
+        return this.hidden
     }
 
     dto() {

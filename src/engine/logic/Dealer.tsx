@@ -1,15 +1,21 @@
 import { Time } from "@/engine/domain/Time"
 import { useGameState } from "@/engine/GameState"
+import { Shuffle } from "../domain/Shuffle"
 
 export class Dealer {
-    public static async dealFirstWarriors(countPerPlayer: number = 3): Promise<void> {
+    public static async dealFirstCards(countPerPlayer: number = 3): Promise<void> {
         const totalCards = 7
         const {deck, drawCard, putOnTop} = useGameState.getState()
 
-        const warriors = deck.filter((card) => card.getType() === 'warrior').sort(() => Math.random() - 0.5)
-        const drawableWarriors = warriors.slice(0, (countPerPlayer * 2) - 1)
+        const warriors = deck.filter((card) => card.getType() === 'warrior').sort(Shuffle.random).slice(0, (countPerPlayer * 2))
 
-        drawableWarriors.forEach((card) => {
+        const restCards = deck.filter((card) => card.getType() !== 'warrior').sort(Shuffle.random).slice(0, ((7-countPerPlayer) * 2))
+
+
+        restCards.forEach((card) => {
+            putOnTop(card)
+        })
+        warriors.forEach((card) => {
             putOnTop(card)
         })
         await Time.tick()

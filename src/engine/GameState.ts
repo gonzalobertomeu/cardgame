@@ -7,6 +7,19 @@ export interface PlayerState {
     board: Card[]
 }
 
+export interface Turn {
+    target: 'player' | 'opponent'
+    phase: TurnPhase
+}
+
+export enum TurnPhase {
+    Draw = 1,
+    Attack = 2,
+    RobSpy = 3,
+    Buy = 4,
+    Build = 5
+}
+
 export interface GameState {
     status: 'unstarted' | 'starting' | 'playing' | 'gameover' | 'paused'
     setStatus: (status: 'unstarted' | 'starting' | 'playing' | 'gameover' | 'paused') => void
@@ -18,9 +31,11 @@ export interface GameState {
     drawCard: (turn: 'player' | 'opponent', selectedCard?: Card) => void
     setOpponentState: (opponent: PlayerState) => void
     discard: Card[]
+    discardCard: (target: 'player' | 'opponent', selectedCard: Card) => void
     setDiscard: (discard: Card[]) => void
-    turn: 'player' | 'opponent'
-    setTurn: (turn: 'player' | 'opponent') => void
+    turn: Turn
+    setTurn: (target: 'player' | 'opponent') => void
+    setPhase: (phase: TurnPhase) => void
     putOnTop: (card: Card) => void
     reset: () => void
 }
@@ -58,6 +73,12 @@ export const useGameState = create<GameState>()(persist<GameState>((set) => ({
             }
         }
     })),
+    discardCard: (target: 'player' | 'opponent', selectedCard: Card) => set(
+        (state: GameState) => produce(state, (draft) => {
+            draft[target].hand = draft[target].hand.filter(c => c.getId() !== selectedCard.getId())
+            draft.discard.push(selectedCard)
+        })
+    ),
     setPlayerState: (player: PlayerState) => set({ player }),
     setOpponentState: (opponent: PlayerState) => set({ opponent }),
     putOnTop: (card: Card) => set((state: GameState) => produce(state, (draft) => {
@@ -69,15 +90,24 @@ export const useGameState = create<GameState>()(persist<GameState>((set) => ({
     })),
     discard: [],
     setDiscard: (discard: Card[]) => set({ discard }),
-    turn: 'player',
-    setTurn: (turn: 'player' | 'opponent') => set({ turn }),
+    turn: {
+        target: 'player',
+        phase: TurnPhase.Draw
+    },
+    setTurn: (target: 'player' | 'opponent') => set({ turn: {target: target, phase: TurnPhase.Draw} }),
+    setPhase: (phase: TurnPhase) => set((state: GameState) => produce(state, (draft) => {
+        draft.turn.phase = phase
+    })),
     reset: () => set({
         deck: [],
         status: 'unstarted',
         player: { hand: [], board: [] },
         opponent: { hand: [], board: [] },
         discard: [],
-        turn: 'player'
+        turn: {
+            target: 'player',
+            phase: TurnPhase.Draw
+        }
     })
 }), {
     name: 'game-state',

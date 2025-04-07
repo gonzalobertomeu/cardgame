@@ -3,9 +3,12 @@ import { useGameState } from "./GameState"
 import { Card } from "./domain/Card"
 import { produce } from 'immer'
 import { Dealer } from "./logic/Dealer"
+import { TurnManager } from "./logic/TurnManager"
 
 export class GameEngine {
     private static instance: GameEngine
+
+    private turnManager: TurnManager|undefined
 
     private constructor() {}
 
@@ -20,12 +23,22 @@ export class GameEngine {
         const deck = DeckBuilder.buildDeck()
         useGameState.getState().setDeck(deck)
         useGameState.getState().setStatus('starting')
-        await Dealer.dealFirstWarriors()
+        await Dealer.dealFirstCards()
         useGameState.getState().setStatus('playing')
+        this.turnManager = new TurnManager('player')
+    }
+
+    public changeTurn() {
+        if (this.turnManager) {
+            const actualTurn = this.turnManager.getTurn()
+            this.turnManager = new TurnManager(actualTurn === 'player' ? 'opponent' : 'player')
+        } else {
+            this.turnManager = new TurnManager('player')
+        }
     }
 
     public drawCard() {
-        const turn = useGameState.getState().turn
+        const turn = useGameState.getState().turn.target
         useGameState.getState().drawCard(turn)
     }
 
